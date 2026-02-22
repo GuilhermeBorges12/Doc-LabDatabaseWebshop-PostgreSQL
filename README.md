@@ -111,14 +111,3 @@ Facilita a recriação completa do ambiente.
 
 ---
 
-## 📜 schemaspy
-
-Script para geração automática de documentação e diagramas do banco utilizando SchemaSpy.
-
-Permite visualizar:
-
-- Estrutura das tabelas
-- Relacionamentos
-- Chaves primárias e estrangeiras
-
----
