@@ -93,6 +93,8 @@ Diretório destinado a scripts auxiliares e lógica procedural:
 - Queries de teste
 - Scripts analíticos
 
+Baseado nos arquivos desta pasta é possível subir manualmente as tabelas utilizando os scripts .sql 
+
 ---
 
 ## 📜 dump
@@ -107,7 +109,7 @@ Permite exportar estrutura e/ou dados do laboratório.
 
 Script Shell utilizado para restaurar o banco a partir de um dump previamente gerado.
 
-Facilita a recriação completa do ambiente.
+Facilita a recriação completa do ambiente. Pode baixar a pasta .zip - abrir com GIT e tentar RESTORE.
 
 ---
 
