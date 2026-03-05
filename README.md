@@ -1,4 +1,4 @@
-# 📦 Webshop Database Lab – PostgreSQL
+# Webshop Database Lab – PostgreSQL
 
 Este repositório documenta a configuração completa de um banco de dados relacional para um sistema de e-commerce fictício utilizando **PostgreSQL**.
 O objetivo é construir, passo a passo, um ambiente realista para prática de SQL e administração básica de banco de dados, incluindo criação de tipos, tabelas, relacionamentos e inserção de dados com lógica procedural.
