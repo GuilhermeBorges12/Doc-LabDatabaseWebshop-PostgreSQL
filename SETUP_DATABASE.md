@@ -1,4 +1,4 @@
-#Configuração do Banco de Dados Webshop (PostgreSQL)
+# Configuração do Banco de Dados Webshop (PostgreSQL)
 
 Este guia mostra o **passo a passo para configurar manualmente o banco de dados Webshop** no PostgreSQL utilizando o **pgAdmin Query Tool**.
 
@@ -14,33 +14,43 @@ Este tutorial também documenta **os principais problemas encontrados durante a 
 
 ---
 
-#  1. Criando o Database
+# 1. Criando o Database
 
 Abra o **Query Tool no pgAdmin** e execute:
 
 ```sql
 CREATE DATABASE webshop;  --provavelmente vc vai estar na conexão default do postgreSQL, após executar o comando se conecte ao WEBSHOP.
+```
 
-
---Para criar o schemma 
 ```sql
+--Para criar o schemma 
 CREATE SCHEMA webshop;
+```
 
-Se quiser conferir rode esse comando e veja se aparece WEBSHOP: 
+Se quiser conferir rode esse comando e veja se aparece WEBSHOP:
 
 ```sql
 SELECT schema_name 
 FROM information_schema.schemata;
+```
 
 Defina o schemma padrão da sessão, porque mesmo que com o schemma criado o SGBD não encontra e puxa o schemma DEFAULT.
 
-Utilize esse comando para resolver : SET search_path TO webshop; --isso vai fazer que vc possa escrever queries sem indicar de qual schemma elas pertencem.
+Utilize esse comando para resolver:
 
-# Executando os Scripts SQL Automaticamente
+```sql
+SET search_path TO webshop;
+```
+
+Isso vai fazer que vc possa escrever queries sem indicar de qual schemma elas pertencem.
+
+---
+
+# 2. Executando os Scripts SQL Automaticamente
 
 Em vez de copiar e colar manualmente cada script no Query Tool, é possível utilizar o comando `\i` do PostgreSQL para executar arquivos `.sql` diretamente.
 
-Isso torna o processo **mais rápido  e reproduzível**.
+Isso torna o processo **mais rápido e reproduzível**.
 
 No Query Tool ou no terminal `psql`, execute os scripts seguindo a ordem abaixo:
 
@@ -60,14 +70,22 @@ No Query Tool ou no terminal `psql`, execute os scripts seguindo a ordem abaixo:
 \i src/CREATE_STOCK.sql
 \i src/CREATE_ORDERS.sql
 \i src/CREATE_ADDRESS.sql
+```
 
-Essa ordem é importante porque algumas tabelas possuem depedências de foreign keys , tipo :  Orders depende de Customer, Articles depende de Products.
-Se a ordem não for respeitada, pode ocorrer o erro que eu tive na hora de configurar :  *violates foreign key constraint*
+Essa ordem é importante porque algumas tabelas possuem depedências de foreign keys, tipo:
 
+- Orders depende de Customer  
+- Articles depende de Products  
+
+Se a ordem não for respeitada, pode ocorrer o erro que eu tive na hora de configurar:
+
+*violates foreign key constraint*
+
+---
 
 # Inserção de Dados com Lógica Procedural (PL/pgSQL)
 
-Após a criação das tabelas, foi necessário popular o banco com dados para simular um ambiente real;
+Após a criação das tabelas, foi necessário popular o banco com dados para simular um ambiente real.
 
 Para isso foram utilizados blocos de código **procedural do PostgreSQL (PL/pgSQL)** executados diretamente no **Query Tool**.
 
@@ -139,11 +157,19 @@ FROM product_insert, color;
 END LOOP;
 END;
 $$;
+```
 
-CASO O COMANDO NÃO SEJA EXECUTADO POR INTEIRO , PODE OCORRER ERROS COMO : syntax error at or near DECLARE 
+CASO O COMANDO NÃO SEJA EXECUTADO POR INTEIRO, PODE OCORRER ERROS COMO:
+
+```
+syntax error at or near DECLARE
+```
+
 Entre nos arquivos e veja que a lógica procedural foi utilizada mais para ficar simulando pedidos e artigos com nomes e itens diferentes.
 
-Para conferir se a instalação funcionou corretamente e foi inserido os dados utilize o seguinte comando: 
+---
+
+Para conferir se a instalação funcionou corretamente e foi inserido os dados utilize o seguinte comando:
 
 ```sql
 SELECT 'products' AS tabela, COUNT(*) FROM webshop.products
@@ -157,17 +183,30 @@ UNION ALL
 SELECT 'order_positions', COUNT(*) FROM webshop.order_positions
 UNION ALL
 SELECT 'address', COUNT(*) FROM webshop.address;
+```
 
---Os resultados esperados são: Customer - 1000 linhas ; Address - 1000 ; Order - 2000 linhas ; Order_positions - 5985 ; Products - 1000 lihas ; articles - 16975
+Resultados esperados:
+
+- Customer — 1000 linhas  
+- Address — 1000 linhas  
+- Order — 2000 linhas  
+- Order_positions — 5985 linhas  
+- Products — 1000 linhas  
+- Articles — 16975 linhas  
+
+---
 
 # Problemas Encontrados Durante a Configuração
 
-Durante a configuração do banco de dados **Webshop** alguns problemas que eu enfrentei.  
+Durante a configuração do banco de dados **Webshop** alguns problemas que eu enfrentei.
+
 Esta seção documenta os erros e as soluções aplicadas durante o processo.
 
 Documentar esses problemas pode ajudar outras pessoas que estejam configurando o ambiente pela primeira vez.
 
-Problema com Inserção de Preços
+---
+
+## Problema com Inserção de Preços
 
 Durante a geração automática de produtos e artigos houve um problema em que os **valores de preço não estavam sendo inseridos corretamente**.
 
@@ -192,7 +231,7 @@ Após o ajuste, os valores passaram a ser inseridos corretamente.
 
 ---
 
-## 6. Problema de Encoding (UTF-8)
+## Problema de Encoding (UTF-8)
 
 Durante a execução de alguns scripts SQL foi encontrado um erro relacionado ao encoding dos arquivos.
 
@@ -231,14 +270,9 @@ Converter os arquivos SQL para **UTF-8** antes de executá-los.
 
 Exemplo no VS Code:
 
-1. Abrir o arquivo `.sql`
-2. Clicar no encoding exibido no canto inferior direito
-3. Selecionar **Save with Encoding**
+1. Abrir o arquivo `.sql`  
+2. Clicar no encoding exibido no canto inferior direito  
+3. Selecionar **Save with Encoding**  
 4. Escolher **UTF-8**
-
-Após a conversão, os scripts passaram a executar normalmente.
-
-
-
 
 
