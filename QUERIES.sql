@@ -1,8 +1,8 @@
 -- =========================================
--- CONSULTAS SQL - WEBSHOP
+		CONSULTAS SQL - WEBSHOP
 -- =========================================
 
---CONSULTAS BÁSICAS 
+		--CONSULTAS BÁSICAS 
 --1
 SELECT firstname,lastname,email
 FROM CUSTOMER;
@@ -45,7 +45,7 @@ FROM  articles  a
 WHERE originalprice BETWEEN '64,00' AND '131,00';
 
 =========================================
---CONSULTAS INTERMEDIÁRIO
+       CONSULTAS INTERMEDIÁRIO
 =========================================
 
 --9 Listando todos os pedidos com nome do cliente
@@ -136,7 +136,7 @@ FROM order_positions op;
 
 
 =========================================
---CONSULTAS AVANÇADAS
+		CONSULTAS AVANÇADAS
 =========================================
 
 --20 Mostre o produto mais vendido (por quantidade).
