@@ -10,7 +10,7 @@ Não é necessário utilizar máquinas virtuais. O ambiente pode ser configurado
 
 ---
 
-# 🧱 O que está sendo configurado
+# O que está sendo configurado
 
 ## 📁 Estrutura do Ambiente
 
@@ -20,7 +20,7 @@ Não é necessário utilizar máquinas virtuais. O ambiente pode ser configurado
 
 ---
 
-## 🧬 Modelagem do Banco
+## Modelagem do Banco
 
 - Tipos `ENUM`  
 - Tabelas com múltiplas `FOREIGN KEYS`  
@@ -29,7 +29,7 @@ Não é necessário utilizar máquinas virtuais. O ambiente pode ser configurado
 
 ---
 
-## ⚙️ Inserção e Geração de Dados
+## Inserção e Geração de Dados
 
 - Uso de `TEMP TABLE`  
 - Inserções em massa com `DO $$` (PL/pgSQL)  
@@ -37,7 +37,7 @@ Não é necessário utilizar máquinas virtuais. O ambiente pode ser configurado
 
 ---
 
-# 🏬 Estrutura Simulada (E-commerce)
+# Estrutura Simulada (E-commerce)
 
 O ambiente representa um sistema de loja virtual com as seguintes entidades:
 
